@@ -73,11 +73,10 @@ def scrape_website():
                 value = value.replace("\n", "")
                 last_four_chars = value[-4:]
                 if any(i in last_four_chars for i in diets):
-                    #print(f'{menu_day}, {lunch_time}, {count}, {value}')
                     MenuString_FI = value
-                    MenuString_EN = translator.translate_text(f"{MenuString_FI}", target_lang="EN-GB")
-                    MenuString_RU = translator.translate_text(f"{MenuString_FI}", target_lang="RU")
-                    print(f'{menu_day}, {lunch_time}, {count-1}, {MenuString_RU}')
+                    #MenuString_EN = translator.translate_text(f"{MenuString_FI}", target_lang="EN-GB")
+                    #MenuString_RU = translator.translate_text(f"{MenuString_FI}", target_lang="RU")
+                    print(f'{menu_day}, {lunch_time}, {count-1}, {MenuString_FI}')
     
     pass
 
