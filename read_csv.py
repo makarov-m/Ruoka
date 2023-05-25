@@ -1,4 +1,7 @@
 import pandas as pd
+from datetime import datetime
+
+date = datetime.now().strftime('%d.%m')
 
 def read_menu(restaurant: str, lang: str, date: str):
     df = pd.read_csv(f'{restaurant}.csv')
@@ -8,4 +11,4 @@ def read_menu(restaurant: str, lang: str, date: str):
     pd.set_option('display.max_colwidth', None)
     print(query.to_string(index=False))
 
-read_menu("Wolkoff", "RU", "22.05")
+read_menu("Kitchen", "RU", str(date))

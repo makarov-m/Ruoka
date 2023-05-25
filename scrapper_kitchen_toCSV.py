@@ -101,11 +101,19 @@ def scrape_website():
                     Weekday_en = translator.translate_text(f"{Weekday_fi}", target_lang="EN-GB")
                     Weekday_ru = translator.translate_text(f"{Weekday_fi}", target_lang="RU")
                     date = menu_day_fi.split(" ")[1]
+                    date = date.split(".")[0]
+                    current_datetime = datetime.now()
+                    #current_year = current_datetime.year
+                    current_month = date_month = current_datetime.strftime("%m")
+                    #month_str = str(current_month)
+                    # Concatenate the month and day with the separator
+                    date_month = date + "." + current_month
+                    #current_day = current_datetime.day
                     LunchTime.append(lunch_time)
                     days_FI.append(Weekday_fi)
                     days_EN.append(Weekday_en)
                     days_RU.append(Weekday_ru)
-                    dates_list.append(date)
+                    dates_list.append(date_month)
 
 
     # print(menu_list_fi)
@@ -150,6 +158,7 @@ def scrape_website():
     df['Price'] = '€14.90/€11.60'
 
     df = df.reset_index(drop=True)
+    df = df.drop_duplicates()
 
     df.to_csv(f'{Restaurant_value}.csv')
     print(df)

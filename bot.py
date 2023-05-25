@@ -24,12 +24,14 @@ lang_ru = KeyboardButton('RU')
 keyboard_lang = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(lang_fi, lang_en, lang_ru)
 
 Wolkoff = KeyboardButton('Wolkoff')
-keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(Wolkoff)
+Kitchen = KeyboardButton('Kitchen')
+keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(Wolkoff, Kitchen)
 
 # User states
 class UserState(StatesGroup):
     language = State()
     restaurant = State()
+    stopped = State()
 
 
 # Read menu function
@@ -42,9 +44,25 @@ def read_menu(restaurant: str, lang: str, date: str):
     return query.to_string(index=False)
 
 # Handlers
-@dp.message_handler(commands=['start', 'help'])
-async def cmd_start(message: types.Message):
-    await message.answer("Select Language", reply_markup=keyboard_lang)
+@dp.message_handler(commands=['start'])
+async def cmd_start(message: types.Message, state: State):
+    if state is None:
+        await message.answer("Select Language", reply_markup=keyboard_lang)
+        # Set the user state to 'language'
+        await UserState.language.set()
+    else:
+        await message.answer("The bot is already running. You can select a new language or stop the bot.")
+
+@dp.message_handler(commands=['stop'], state="*")
+async def cmd_stop(message: types.Message, state: State):
+    await message.answer("Bot stopped.")
+    # Clear all states and set 'stopped' state
+    await state.finish()
+    await UserState.stopped.set()
+
+@dp.message_handler(commands=['start'], state=UserState.stopped)
+async def cmd_start_after_stop(message: types.Message, state: State):
+    await message.answer("Bot started. Select Language", reply_markup=keyboard_lang)
     # Set the user state to 'language'
     await UserState.language.set()
 
@@ -60,7 +78,7 @@ async def process_language(message: types.Message, state: State):
 
 @dp.message_handler(state=UserState.restaurant)
 async def process_restaurant(message: types.Message, state: State):
-    if message.text == "Wolkoff":
+    if message.text in ["Wolkoff", "Kitchen"]:
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')
@@ -69,7 +87,7 @@ async def process_restaurant(message: types.Message, state: State):
         date = datetime.now().strftime('%d.%m')
 
         # Call the read_menu function with appropriate arguments
-        menu = read_menu("Wolkoff", language, date)
+        menu = read_menu(message.text, language, date)
 
         await message.answer(menu)
     else:
