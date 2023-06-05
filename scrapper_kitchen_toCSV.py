@@ -104,7 +104,7 @@ def scrape_website():
                     date = date.split(".")[0]
                     current_datetime = datetime.now()
                     #current_year = current_datetime.year
-                    current_month = date_month = current_datetime.strftime("%m")
+                    current_month = current_datetime.strftime("%m")
                     #month_str = str(current_month)
                     # Concatenate the month and day with the separator
                     date_month = date + "." + current_month
