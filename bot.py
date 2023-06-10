@@ -25,7 +25,8 @@ keyboard_lang = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True
 
 Wolkoff = KeyboardButton('Wolkoff')
 Kitchen = KeyboardButton('Kitchen')
-keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(Wolkoff, Kitchen)
+Kehruuhuone = KeyboardButton('Kehruuhuone')
+keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(Wolkoff, Kitchen, Kehruuhuone)
 
 # User states
 class UserState(StatesGroup):
@@ -37,7 +38,9 @@ class UserState(StatesGroup):
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
     df = pd.read_csv(f'{restaurant}.csv')
-    df['Date']=df['Date'].astype(str)
+    df['Date'] = df['Date'].astype(str)
+    df['Date'] = pd.to_datetime(df['Date'], format='%d.%m')
+    df['Date'] = df['Date'].dt.strftime('%d.%m')
     query = df[(df["Lang"] == lang) & (df["Date"] == date)]["Menu"]
 
     pd.set_option('display.max_colwidth', None)
@@ -78,7 +81,7 @@ async def process_language(message: types.Message, state: State):
 
 @dp.message_handler(state=UserState.restaurant)
 async def process_restaurant(message: types.Message, state: State):
-    if message.text in ["Wolkoff", "Kitchen"]:
+    if message.text in ["Wolkoff", "Kitchen", "Kehruuhuone"]:
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')

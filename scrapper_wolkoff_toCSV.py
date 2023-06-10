@@ -76,9 +76,10 @@ def scrape_website():
     days_RU = []
     dates_list = []
     counter = 0
-    #running_date = datetime.today()
-    running_date = '2023-05-22'
-    date_object = datetime.strptime(running_date, '%Y-%m-%d').date()
+    running_date = datetime.today()
+    date_object = running_date
+    #running_date = '2023-05-22'
+    #date_object = datetime.strptime(running_date, '%Y-%m-%d').date()
 
     # Loop through the menu items and extract the text from all <p> tags within the divs
     for item in menu_items[:5]:

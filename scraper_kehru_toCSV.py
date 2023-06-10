@@ -1,148 +1,185 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-from datetime import datetime, timedelta
-from bs4 import BeautifulSoup
+# import codecs
+from lxml import html
 import requests
-import json
+import pandas as pd
+from datetime import datetime
+import re
 import deepl
 
 # deepl library
 auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx"  # Replace with your key
 translator = deepl.Translator(auth_key)
 
-# create an empty JSON file named 'json_name.json'
-def create_empty_json(json_name):
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump({}, f)
+# Request the page
+url = 'https://www.raflaamo.fi/fi/ravintola/lappeenranta/kehruuhuone/menu/lounas?menuGroupId=2026&menuGroupTitle=burgerit'
+page = requests.get(url)
+# Modified XPath to retrieve text content
+Xpath = '//*[@id="__next"]/div[1]/main/div/article/div[3]/div//text()'  
+ 
+# Parsing the page
+tree = html.fromstring(page.content) 
+ 
+# Get element text using XPath
+content = tree.xpath(Xpath)
 
-# create an empty JSON file named 'json_name.json'
-def truncate_json(json_name):
-    with open(f'{json_name}.json', 'r+') as f:
-        f.truncate(0)
+# Initialize the lists to store the data
+dates = []
+prices = []
+        
+# Initialize the dictionary to store the sublists
+day_lists_fi = {'maanantai': [], 'tiistai': [], 'keskiviikko': [], 'torstai': [], 'perjantai': []}
+day_lists_en = {'Monday': [], 'Tuesday': [], 'Wednesday': [], 'Thursday': [], 'Friday': []}
+day_lists_ru = {'понедельник': [], 'вторник': [], 'среда': [], 'четверг': [], 'пятница': []}
 
-def write_json(json_name, dict):
-    # load the existing JSON data from the file
-    with open(f'{json_name}.json', 'r') as f:
-        data = json.load(f)
+# Iterate over the data and split it into sublists based on the day of the week
+for item in content:
+    if item.strip().lower() in day_lists_fi:
+        # Update the current_day variable
+        current_day = item.strip().lower()
+    elif current_day is not None and not item.isspace():
+        # Append the non-empty and non-whitespace item to the corresponding day list
+        day_lists_fi[current_day].append(item)
 
-    # add a dictionary to the data
-    data.update(dict)
+# extracting dates from webpage
+for key, value in day_lists_fi.items():
+    if len(value) == 0:
+        dates.append(None)
+    else:
+        for i in value:
+            date_pattern = r"(\d{1,2}\.\d{1,2}\.)"
+            if re.match(date_pattern, i):
+                date_format_full = "%d.%m.%Y"
+                date_format_short = "%d.%m."
+                current_datetime = datetime.now()
+                current_year = current_datetime.strftime("%Y")
+                current_date_full = datetime.strptime(i+current_year, date_format_full)
+                current_date_month = current_date_full.strftime("%d.%m")
+                dates.append(current_date_month)
 
-    # write the modified data back to the file
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump(data, f)
+# extracting menu from webpage
+def create_menu(list):
+    menus = []
+    for item in list:
+        if item != " ":
+            date_pattern = r"(\d{1,2}\.\d{1,2}\.)"
+            if item.startswith('Lounas:'):
+                # Update current_lounas_time
+                current_lounas_time = item.replace('Lounas: ', '')
+                current_lounas_time = current_lounas_time.replace('.', '')
+                current_lounas_time = current_lounas_time.replace(' ', '')
+            elif re.match(date_pattern, item):
+                date_format_full = "%d.%m.%Y"
+                current_datetime = datetime.now()
+                current_year = current_datetime.strftime("%Y")
+                current_date_full = datetime.strptime(item+current_year, date_format_full)
+                current_date_month = current_date_full.strftime("%d.%m")
+            elif item.endswith('€'):
+                # Update current_menu and current_price
+                current_price = item
+                prices.append(current_price)
+            elif len(item)>3:
+                current_menu = item
+                menus.append(current_menu)
+            else:
+                pass
+    return menus
 
-def create_dict(dict_name: str, value_input):
-    # create small dict
-    dict = {}
-    key = dict_name
-    value = value_input
-    dict[key] = value
-    return dict
+# extract menus from mixed data (time, prices, etc.) in Finnish
+menu_mon_fi = create_menu(day_lists_fi['maanantai'])
+menu_tue_fi = create_menu(day_lists_fi['tiistai'])
+menu_wed_fi = create_menu(day_lists_fi['keskiviikko'])
+menu_thu_fi = create_menu(day_lists_fi['torstai'])
+menu_fri_fi = create_menu(day_lists_fi['perjantai'])
+# translate EN
+menu_mon_en = translator.translate_text(f"{menu_mon_fi}", target_lang="EN-GB")
+menu_tue_en = translator.translate_text(f"{menu_tue_fi}", target_lang="EN-GB")
+menu_wed_en = translator.translate_text(f"{menu_wed_fi}", target_lang="EN-GB")
+menu_thu_en = translator.translate_text(f"{menu_thu_fi}", target_lang="EN-GB")
+menu_fri_en = translator.translate_text(f"{menu_fri_fi}", target_lang="EN-GB")
+# translate RU
+menu_mon_ru = translator.translate_text(f"{menu_mon_fi}", target_lang="RU")
+menu_tue_ru = translator.translate_text(f"{menu_tue_fi}", target_lang="RU")
+menu_wed_ru = translator.translate_text(f"{menu_wed_fi}", target_lang="RU")
+menu_thu_ru = translator.translate_text(f"{menu_thu_fi}", target_lang="RU")
+menu_fri_ru = translator.translate_text(f"{menu_fri_fi}", target_lang="RU")
+
+# reassign menus to each day
+day_lists_fi['maanantai'] = menu_mon_fi
+day_lists_fi['tiistai'] = menu_tue_fi
+day_lists_fi['keskiviikko'] = menu_wed_fi
+day_lists_fi['torstai'] = menu_thu_fi
+day_lists_fi['perjantai'] = menu_fri_fi
+
+# reassign menus to each day in english
+day_lists_en['Monday'] = menu_mon_en
+day_lists_en['Tuesday'] = menu_tue_en
+day_lists_en['Wednesday'] = menu_wed_en
+day_lists_en['Thursday'] = menu_thu_en
+day_lists_en['Friday'] = menu_fri_en
+
+# reassign menus to each day in russian
+day_lists_ru['понедельник'] = menu_mon_ru
+day_lists_ru['вторник'] = menu_tue_ru
+day_lists_ru['среда'] = menu_wed_ru
+day_lists_ru['четверг'] = menu_thu_ru
+day_lists_ru['пятница'] = menu_fri_ru
+
+# store menus in dataframe
+df_menu_fi = pd.DataFrame([day_lists_fi]).T.reset_index()
+df_menu_fi = df_menu_fi.rename(columns={"index": "Weekday", 0: "Menu"})
+
+# store menus in dataframe
+df_menu_en = pd.DataFrame([day_lists_en]).T.reset_index()
+df_menu_en = df_menu_en.rename(columns={"index": "Weekday", 0: "Menu"})
+
+# store menus in dataframe
+df_menu_ru = pd.DataFrame([day_lists_ru]).T.reset_index()
+df_menu_ru = df_menu_ru.rename(columns={"index": "Weekday", 0: "Menu"})
+
+# creating output dataframe
+df_fi = pd.DataFrame()
+df_en = pd.DataFrame()
+df_ru = pd.DataFrame()
+
+now = datetime.today().strftime('%Y-%m-%d %-H:%M:%S %z')
+Restaurant_value = "Kehruuhuone"
+
+df_fi['Date'] = dates
+df_fi['Weekday'] = df_menu_fi['Weekday']
+df_fi['Menu'] = df_menu_fi['Menu']
+df_fi['Lang'] = "FI"
+df_fi['UpdateDate'] = now
+df_fi['Restaurant'] = Restaurant_value
+df_fi['LunchTime'] = '11:00-14:00'
+df_fi['MenuLink'] = url
+df_fi['Price'] = '€14.90/€12.90'
+
+df_en['Date'] = dates
+df_en['Weekday'] = df_menu_en['Weekday']
+df_en['Menu'] = df_menu_en['Menu']
+df_en['Lang'] = "EN"
+df_en['UpdateDate'] = now
+df_en['Restaurant'] = Restaurant_value
+df_en['LunchTime'] = '11:00-14:00'
+df_en['MenuLink'] = url
+df_en['Price'] = '€14.90/€12.90'
+
+df_ru['Date'] = dates
+df_ru['Weekday'] = df_menu_ru['Weekday']
+df_ru['Menu'] = df_menu_ru['Menu']
+df_ru['Lang'] = "RU"
+df_ru['UpdateDate'] = now
+df_ru['Restaurant'] = Restaurant_value
+df_ru['LunchTime'] = '11:00-14:00'
+df_ru['MenuLink'] = url
+df_ru['Price'] = '€14.90/€12.90'
+
+df = pd.concat([df_fi, df_en, df_ru])
+df = df.reset_index(drop=True)
+df.to_csv(f'{Restaurant_value}.csv')
 
 
-# Define a function to scrape the Kehruuhuone
-def scrape_Kehruuhuone():
-    url = 'https://www.raflaamo.fi/fi/ravintola/lappeenranta/kehruuhuone/menu/lounas?menuGroupId=2026&menuGroupTitle=burgerit'
-
-    # Send a request to the website
-    response = requests.get(url)
-
-
-    # Parse the HTML content using BeautifulSoup
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    # week number
-    week_number = int(datetime.today().strftime('%W'))
-
-    # Extract the menu items
-    #menu_items = soup.find_all('div', {'class': f'sc-b3b37590-{week_number}'})
-    menu_items = soup.find_all('div', {'class': f'sc-dbbdc76b-15 bBAJkn'})
-    #print(menu_items)
-
-    # Metadata about restaurant and scrapping
-    UpdateDate_value = datetime.today().strftime('%Y-%m-%d %-H:%M:%S %z')
-    UpdateDate_dict = create_dict('UpdateDate', UpdateDate_value)
-
-    Restaurant_value = 'Kehruuhuone'
-    Restaurant_dict = create_dict('Restaurant', Restaurant_value)
-
-    LunchTime_value = '11:00-14:00'
-    LunchTime_dict = create_dict("LunchTime", LunchTime_value)
-
-    MenuLink_value = url
-    MenuLink_dict = create_dict("MenuLink", MenuLink_value)
-
-    menu_dict = {}    
-
-    menu_list_fi = []
-    menu_list_en = []
-    menu_list_ru = []
-
-    menu_dict_fi = {}
-    menu_dict_en = {}
-    menu_dict_ru = {}
-
-    weekDaysDatesList = []
-    weekDaysList = ['Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai']
-    lang = ["FI", "EN", "RU"]
-    counter = 0
-
-    # Loop through the menu items and extract the text from all <p> tags within the divs
-    # for item in menu_items:
-    #     item_texts = item.find_all('span')
-    #     print(item_texts)
-        #MenuString_FI = [text.get_text(strip=True) for text in item_texts]
-        #print(MenuString_FI)
-        #  MenuString_EN = translator.translate_text(f"{MenuString_FI}", target_lang="EN-GB")
-        #  MenuString_RU = translator.translate_text(f"{MenuString_FI}", target_lang="RU")
-        #menu_list_fi.append(MenuString_FI)
-        #  menu_list_en.append(MenuString_EN)
-        #  menu_list_ru.append(MenuString_RU)
-        #  WeekDayNumber = datetime.today().weekday()
-        #  weekDaysDates = datetime.today() - timedelta(days = WeekDayNumber) + timedelta(days=counter)
-        #  day_month = weekDaysDates.strftime('%d.%m')
-        #  weekDaysDatesList.append(day_month)
-         #print(Restaurant_value)
-         #print(weekDaysList[counter])
-         #print(MenuString_FI)
-         #print()
-        #  counter += 1
-
-    # creating dictionaries with menu (external and internal)
-    # for i in range(5):
-    #     key_ext = weekDaysList[i] + "_" + weekDaysDatesList[i]
-        # for j in lang:
-        #     key_int = j
-        #     value_fi = menu_list_fi[i]
-        #     value_en = menu_list_en[i]
-        #     value_ru = menu_list_ru[i]
-
-        #     menu_dict_fi[key_int] = value_fi
-        #     menu_dict_en[key_int] = value_en
-        #     menu_dict_ru[key_int] = value_ru
-
-        # menu_dict[key_ext] = menu_dict_fi
-        # menu_dict[key_ext] = menu_dict_en
-        # menu_dict[key_ext] = menu_dict_ru
-        # value_ru = menu_list_ru[i]
-        # menu_dict[key_ext] = value_ru
-
-    
-    # print(menu_dict)
-
-    # write the data to JSON
-    # create_empty_json(Restaurant_value)
-    # write_json(Restaurant_value, UpdateDate_dict)
-    # write_json(Restaurant_value, Restaurant_dict)
-    # write_json(Restaurant_value, LunchTime_dict)
-    # write_json(Restaurant_value, MenuLink_dict)
-    # write_json(Restaurant_value, menu_dict)
-
-if __name__ == "__main__":
-    scrape_Kehruuhuone()
-    
-
-
-
+# if __name__ == "__main__":
+#     scrape_Kehruuhuone()

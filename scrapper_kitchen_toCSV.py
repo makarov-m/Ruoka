@@ -163,8 +163,6 @@ def scrape_website():
     df.to_csv(f'{Restaurant_value}.csv')
     print(df)
 
-
-    
     pass
 
 scrape_website()
