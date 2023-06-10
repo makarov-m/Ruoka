@@ -4,47 +4,15 @@
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import requests
-import json
 import deepl
 import pandas as pd
 
 # deepl library
-auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx"  # Replace with your key
+auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx" 
 translator = deepl.Translator(auth_key)
 
-# create an empty JSON file named 'json_name.json'
-def create_empty_json(json_name):
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump({}, f)
-
-# create an empty JSON file named 'json_name.json'
-def truncate_json(json_name):
-    with open(f'{json_name}.json', 'r+') as f:
-        f.truncate(0)
-
-def write_json(json_name, dict):
-    # load the existing JSON data from the file
-    with open(f'{json_name}.json', 'r') as f:
-        data = json.load(f)
-
-    # add a dictionary to the data
-    data.update(dict)
-
-    # write the modified data back to the file
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump(data, f)
-
-def create_dict(dict_name: str, value_input):
-    # create small dict
-    dict = {}
-    key = dict_name
-    value = value_input
-    dict[key] = value
-    return dict
-
-
 # Define a function to scrape the website
-def scrape_website():
+def scrape_kitchen():
     url = 'https://ravintolakitchen.fi/lounas-2/'
 
     # Send a request to the website
@@ -57,14 +25,11 @@ def scrape_website():
     menu_items = soup.find_all('div', {'class': 'column column-block'})
 
     # options
-    restaurant_name = 'Kitchen'
-    restaurant_website = 'https://ravintolakitchen.fi/'
     today = datetime.today()
     diets = ['L', 'V', 'G', 'M']
     UpdateDate_value = datetime.today().strftime('%Y-%m-%d %-H:%M:%S %z')
     Restaurant_value = 'Kitchen'
     LunchTime_value = '10:30-15:00'
-    MenuLink_value = url
 
     menu_list_fi = []
     menu_list_en = []
@@ -84,8 +49,6 @@ def scrape_website():
             # this block creates cleans the menu
             for count, value in enumerate(item_strings):
                 menu_day_fi = item_strings[0]
-                #menu_day_en = translator.translate_text(f"{menu_day_fi}", target_lang="EN-GB")
-                #menu_day_ru = translator.translate_text(f"{menu_day_fi}", target_lang="RU")
                 lunch_time = item_strings[1]
                 value = value.replace("\n", "")
                 last_four_chars = value[-4:]
@@ -103,22 +66,14 @@ def scrape_website():
                     date = menu_day_fi.split(" ")[1]
                     date = date.split(".")[0]
                     current_datetime = datetime.now()
-                    #current_year = current_datetime.year
                     current_month = current_datetime.strftime("%m")
-                    #month_str = str(current_month)
                     # Concatenate the month and day with the separator
                     date_month = date + "." + current_month
-                    #current_day = current_datetime.day
                     LunchTime.append(lunch_time)
                     days_FI.append(Weekday_fi)
                     days_EN.append(Weekday_en)
                     days_RU.append(Weekday_ru)
                     dates_list.append(date_month)
-
-
-    # print(menu_list_fi)
-    # print(LunchTime)
-    # print(days_FI)
 
     # output from scrapping
     df_fi = pd.DataFrame()
@@ -160,9 +115,7 @@ def scrape_website():
     df = df.reset_index(drop=True)
     df = df.drop_duplicates()
 
-    df.to_csv(f'{Restaurant_value}.csv')
-    print(df)
+    return df.to_csv(f'{Restaurant_value}.csv')
 
-    pass
-
-scrape_website()
+if __name__ == "__main__":
+    scrape_kitchen()

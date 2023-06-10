@@ -4,47 +4,15 @@
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import requests
-import json
 import deepl
 import pandas as pd
 
 # deepl library
-auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx"  # Replace with your key
+auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx"  
 translator = deepl.Translator(auth_key)
 
-# create an empty JSON file named 'json_name.json'
-def create_empty_json(json_name):
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump({}, f)
-
-# truncate an empty JSON file named 'json_name.json'
-def truncate_json(json_name):
-    with open(f'{json_name}.json', 'r+') as f:
-        f.truncate(0)
-
-def write_json(json_name, dict):
-    # load the existing JSON data from the file
-    with open(f'{json_name}.json', 'r') as f:
-        data = json.load(f)
-
-    # add a dictionary to the data
-    data.update(dict)
-
-    # write the modified data back to the file
-    with open(f'{json_name}.json', 'w') as f:
-        json.dump(data, f)
-
-def create_dict(dict_name: str, value_input):
-    # create small dict
-    dict = {}
-    key = dict_name
-    value = value_input
-    dict[key] = value
-    return dict
-
-
 # Define a function to scrape the website
-def scrape_website():
+def scrape_wolkoff():
     url = 'https://wolkoff.fi/ruoka-juoma/#post-1247'
 
     # Send a request to the website
@@ -60,17 +28,12 @@ def scrape_website():
     UpdateDate_value = datetime.today().strftime('%Y-%m-%d %-H:%M:%S %z')
     Restaurant_value = 'Wolkoff'
     LunchTime_value = '11:00-14:00'
-    MenuLink_value = url
- 
 
     menu_list_fi = []
     menu_list_en = []
     menu_list_ru = []
 
     # options
-    today = datetime.today()
-    diets = ['L', 'V', 'G', 'M']
-    lang = ["FI", "EN", "RU"]
     days_FI = []
     days_EN = []
     days_RU = []
@@ -105,11 +68,12 @@ def scrape_website():
         menu_list_en.append(MenuString_EN)
         menu_list_ru.append(MenuString_RU)
         # working with dates
-        WeekDayNumber = date_object.weekday()          # Monday = 1, Tuesday = 2 ...
+        WeekDayNumber = date_object.weekday()                 #  Monday = 1, Tuesday = 2 ...
         weekDaysDates = date_object + timedelta(days=counter) #- timedelta(days = WeekDayNumber) 
         day_month = weekDaysDates.strftime('%d.%m')
         dates_list.append(day_month)
         counter = counter + 1
+        
     # output from scrapping
     df_fi = pd.DataFrame()
     df_en = pd.DataFrame()
@@ -138,11 +102,9 @@ def scrape_website():
     df['LunchTime'] = LunchTime_value
     df['MenuLink'] = url
     df['Price'] = '€14.90/€12.90'
-
     df = df.reset_index(drop=True)
+    
+    return df.to_csv(f'{Restaurant_value}.csv')
 
-    df.to_csv(f'{Restaurant_value}.csv')
-    print(df)
-
-
-scrape_website()
+if __name__ == "__main__":
+    scrape_wolkoff()

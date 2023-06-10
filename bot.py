@@ -8,7 +8,6 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from datetime import datetime
 
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
@@ -34,17 +33,20 @@ class UserState(StatesGroup):
     restaurant = State()
     stopped = State()
 
-
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
     df = pd.read_csv(f'{restaurant}.csv')
     df['Date'] = df['Date'].astype(str)
     df['Date'] = pd.to_datetime(df['Date'], format='%d.%m')
     df['Date'] = df['Date'].dt.strftime('%d.%m')
-    query = df[(df["Lang"] == lang) & (df["Date"] == date)]["Menu"]
-
+    query_weekday = df[(df["Lang"]==lang)&(df["Date"]==date)]["Weekday"]
+    query_date = df[(df["Lang"]==lang)&(df["Date"]==date)]["Date"]
+    query_time = df[(df["Lang"] == lang) & (df["Date"] == date)]["LunchTime"]
+    query_menu = df[(df["Lang"] == lang) & (df["Date"] == date)]["Menu"]
+    query_price = df[(df["Lang"] == lang) & (df["Date"] == date)]["Price"]
+    query_link = df[(df["Lang"] == lang) & (df["Date"] == date)]["MenuLink"]
     pd.set_option('display.max_colwidth', None)
-    return query.to_string(index=False)
+    return query_weekday.to_string(index=False), query_date.to_string(index=False), query_time.to_string(index=False), query_menu.to_string(index=False), query_price.to_string(index=False), query_link.to_string(index=False)
 
 # Handlers
 @dp.message_handler(commands=['start'])
@@ -85,13 +87,10 @@ async def process_restaurant(message: types.Message, state: State):
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')
-
         # Set the date parameter to the current date in the format '%d.%m'
         date = datetime.now().strftime('%d.%m')
-
         # Call the read_menu function with appropriate arguments
         menu = read_menu(message.text, language, date)
-
         await message.answer(menu)
     else:
         await message.answer("Invalid restaurant selection")
