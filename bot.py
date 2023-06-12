@@ -1,18 +1,29 @@
 #!/usr/bin/env python
-
+import os
 import logging
 import pandas as pd
+from cachetools import TTLCache
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher.handler import CancelHandler
+from aiogram.dispatcher.middlewares import BaseMiddleware
+from datetime import datetime
+import csv
 from datetime import datetime
 
-# Configure logging
+# Configure logging for your script
 logging.basicConfig(level=logging.INFO)
+cache = TTLCache(maxsize=float('inf'), ttl=0.5)
 
 # Initialize bot and dispatcher
-bot = Bot(token="6011465609:AAEXd6yBibr1KGZoofKgkM13YeMQ8z_6aHk")
+#token = os.getenv('BOT_TOKEN')
+#print(token)
+token = "6011465609:AAEXd6yBibr1KGZoofKgkM13YeMQ8z_6aHk"
+if not token:
+    exit("Error: no token provided")
+bot = Bot(token=token)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
@@ -33,27 +44,57 @@ class UserState(StatesGroup):
     restaurant = State()
     stopped = State()
 
+# Middleware for throttling. Ignores any repeated requests for 0.5 sec
+class ThrottleMiddleware(BaseMiddleware):
+    async def on_process_message(self, message: types.Message, data: dict):
+        if not cache.get(message.chat.id):  # It is assumed that the bot does NOT work in groups
+            cache[message.chat.id] = True   # There is no entry in the cache, create
+            return
+        else:  # skip processing
+            raise CancelHandler
+        
+dp.middleware.setup(ThrottleMiddleware())       
+
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
     df = pd.read_csv(f'{restaurant}.csv')
     df['Date'] = df['Date'].astype(str)
     df['Date'] = pd.to_datetime(df['Date'], format='%d.%m')
     df['Date'] = df['Date'].dt.strftime('%d.%m')
-    query_weekday = df[(df["Lang"]==lang)&(df["Date"]==date)]["Weekday"]
-    query_date = df[(df["Lang"]==lang)&(df["Date"]==date)]["Date"]
-    query_time = df[(df["Lang"] == lang) & (df["Date"] == date)]["LunchTime"]
-    query_menu = df[(df["Lang"] == lang) & (df["Date"] == date)]["Menu"]
-    query_price = df[(df["Lang"] == lang) & (df["Date"] == date)]["Price"]
-    query_link = df[(df["Lang"] == lang) & (df["Date"] == date)]["MenuLink"]
+    query_weekday = df[(df["Lang"]==lang)&(df["Date"]==date)]["Weekday"].drop_duplicates()
+    query_date = df[(df["Lang"]==lang)&(df["Date"]==date)]["Date"].drop_duplicates()
+    query_time = df[(df["Lang"] == lang) & (df["Date"] == date)]["LunchTime"].drop_duplicates()
+    query_menu = df[(df["Lang"] == lang) & (df["Date"] == date)]["Menu"].drop_duplicates()
+    query_price = df[(df["Lang"] == lang) & (df["Date"] == date)]["Price"].drop_duplicates()
+    query_link = df[(df["Lang"] == lang) & (df["Date"] == date)]["MenuLink"].drop_duplicates()
     pd.set_option('display.max_colwidth', None)
-    return query_weekday.to_string(index=False), query_date.to_string(index=False), query_time.to_string(index=False), query_menu.to_string(index=False), query_price.to_string(index=False), query_link.to_string(index=False)
+    return (
+        query_weekday.to_string(index=False), 
+        query_date.to_string(index=False), 
+        query_time.to_string(index=False), 
+        query_menu.to_string(index=False), 
+        query_price.to_string(index=False), 
+        query_link.to_string(index=False)
+        )
+
+def write_user_info(user_username, timestamp):
+    file_exists = os.path.isfile('user_info.csv')
+    with open('user_info.csv', 'a', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';')
+        if not file_exists:
+            writer.writerow(['user_username', 'timestamp'])  # Write header if the file is newly created
+        writer.writerow([user_username, timestamp])
 
 # Handlers
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message, state: State):
     if state is None:
+        logging.info(message.from_user.id, message.from_user.username)
+        # Write user information to the CSV file
+        user_username = message.from_user.username
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        write_user_info(user_username, timestamp)
         await message.answer("Select Language", reply_markup=keyboard_lang)
-        # Set the user state to 'language'
         await UserState.language.set()
     else:
         await message.answer("The bot is already running. You can select a new language or stop the bot.")
