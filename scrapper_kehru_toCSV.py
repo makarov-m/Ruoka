@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
 # import codecs
-from lxml import html
+import os
 import requests
 import pandas as pd
-from datetime import datetime
 import re
 import deepl
+from lxml import html
+from dotenv import load_dotenv
+from datetime import datetime
 
 # deepl library
-auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx"  # Replace with your key
-translator = deepl.Translator(auth_key)
+load_dotenv()
+token = os.getenv('TRANSLATE')
+if not token:
+    exit("Error: no token provided")
+translator = deepl.Translator(token)
 
 def scrape_Kehruuhuone():
     # Request the page

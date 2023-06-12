@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-from datetime import datetime, timedelta
-from bs4 import BeautifulSoup
+import os
 import requests
 import deepl
 import pandas as pd
+from datetime import datetime
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
 # deepl library
-auth_key = "ad34c11c-d02c-6496-4ee5-7c52693f6a31:fx" 
-translator = deepl.Translator(auth_key)
+load_dotenv()
+token = os.getenv('TRANSLATE')
+if not token:
+    exit("Error: no token provided")
+translator = deepl.Translator(token)
 
 # Define a function to scrape the website
 def scrape_kitchen():

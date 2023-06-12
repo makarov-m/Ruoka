@@ -1,95 +1,95 @@
 ,Date,Weekday,Menu,Lang,LunchTime,UpdateDate,Restaurant,MenuLink,Price
-0,12.06,Maanantai,"Purjososekeitto L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-1,12.06,Maanantai,Broileris-kasvis-pastavuoka L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-2,12.06,Maanantai,"Makkaralajitelma jasinappimajoneesi L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-3,12.06,Maanantai,"Parmesan-kaprisperuna L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-4,12.06,Maanantai,Marjapiirakka ja vaniljakastike L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-5,13.06,Tiistai,"Borskeitto ja smetana M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-6,13.06,Tiistai,"Jauhelihakastike L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-7,13.06,Tiistai,"Perunamuusi L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-8,13.06,Tiistai,"Sienirisottoa ja parmesaania L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-9,13.06,Tiistai,"Vadelmakiisseli L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-10,14.06,Keskiviikko,Chili-juustokeitto ja krutonkia L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-11,14.06,Keskiviikko,"Lihapullia tomaattikastikkeessa L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-12,14.06,Keskiviikko,"Kanan paistileikettä ja savupaprikamajoneesia L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-13,14.06,Keskiviikko,Pastaa L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-14,14.06,Keskiviikko,"Gratinoitua parsaa M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-15,14.06,Keskiviikko,"Mustikkarahka L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-16,15.06,Torstai,"Tomaattikeitto ja basilikaöljy L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-17,15.06,Torstai,"Makkarastroganof ja smetana L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-18,15.06,Torstai,Rapeat muikut tillikermaviili L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-19,15.06,Torstai,"Perunamuhennos L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-20,15.06,Torstai,"Voissa paistetut porkkanat L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-21,15.06,Torstai,"Pannacotta ja marjahillo L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-22,16.06,Perjantai,"Pinaattikeitto murskattukananmuna L,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-23,16.06,Perjantai,Rapea kana lime aioli L,FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-24,16.06,Perjantai,"Yön yli haudutettu porsaan niska M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-25,16.06,Perjantai,"Lohkoperunat M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-26,16.06,Perjantai,"Riisi M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-27,16.06,Perjantai,"Hedelmäsalaatti M,G",FI,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-28,12.06,Monday,"Leek soup L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-29,12.06,Monday,Chicken and vegetable pasta L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-30,12.06,Monday,"Sausage assortment and mustard mayonnaise L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-31,12.06,Monday,"Parmesan-caprisperuna L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-32,12.06,Monday,Berry pie and custard L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-33,12.06,Monday,"Leek soup L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-34,12.06,Monday,Chicken and vegetable pasta L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-35,12.06,Monday,"Sausage assortment and mustard mayonnaise L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-36,12.06,Monday,"Parmesan-caprisperuna L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-37,12.06,Monday,Berry pie and custard L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-38,13.06,Tuesday,"Pepper soup and sour cream M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-39,13.06,Tuesday,"Meat and bonemeal sauces L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-40,13.06,Tuesday,"Mashed potatoes L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-41,13.06,Tuesday,"Mushroom risotto and parmesan L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-42,13.06,Tuesday,"Raspberry macaroons L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-43,14.06,Wednesday,Chili cheese soup and croutons L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-44,14.06,Wednesday,"Meatballs in tomato sauce L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-45,14.06,Wednesday,"Chicken cutlet with smoked paprika mayonnaise L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-46,14.06,Wednesday,Pasta L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-47,14.06,Wednesday,"Gratinated asparagus M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-48,14.06,Wednesday,"Blueberry cream L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-49,15.06,Torstai,"Tomato soup with basil oil L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-50,15.06,Torstai,"Macarastroganof and smetana L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-51,15.06,Torstai,Crispy muesli with cottage cheese L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-52,15.06,Torstai,"Potato stew L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-53,15.06,Torstai,"Carrots fried in water L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-54,15.06,Torstai,"Pannacotta and berry jam L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-55,16.06,Chain,"Spinach soup with crushed egg L,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-56,16.06,Chain,Crispy chicken lime aioli L,EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-57,16.06,Chain,"Overnight braised pork neck M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-58,16.06,Chain,"Block potatoes M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-59,16.06,Chain,"Rice M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-60,16.06,Chain,"Fruit salad M,G",EN,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-61,12.06,Понедельник,"Суп из лука-порея L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-62,12.06,Понедельник,Паста с курицей и овощами L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-63,12.06,Понедельник,"Колбасное ассорти и горчичный майонез L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-64,12.06,Понедельник,"Пармезан-каприсперуна L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-65,12.06,Понедельник,Ягодный пирог с заварным кремом L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-66,12.06,Понедельник,"Суп из лука-порея L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-67,12.06,Понедельник,Паста с курицей и овощами L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-68,12.06,Понедельник,"Колбасное ассорти и горчичный майонез L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-69,12.06,Понедельник,"Пармезан-каприсперуна L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-70,12.06,Понедельник,Ягодный пирог с заварным кремом L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-71,13.06,Вторник,"Суп с перцем и сметаной М,Ж",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-72,13.06,Вторник,"Соусы из мяса и костей мидии L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-73,13.06,Вторник,"Картофельное пюре L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-74,13.06,Вторник,"Ризотто с грибами и пармезаном L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-75,13.06,Вторник,"Макаруны с малиной L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-76,14.06,Среда,Сырный суп с чили и гренками L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-77,14.06,Среда,"Тефтели в томатном соусе L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-78,14.06,Среда,"Куриная котлета с майонезом из копченой паприки L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-79,14.06,Среда,Паста L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-80,14.06,Среда,"Спаржа на гратене М,Ж",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-81,14.06,Среда,"Черничный крем L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-82,15.06,Торстай,"Томатный суп с базиликовым маслом L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-83,15.06,Торстай,"Макарастроганоф и Сметана Л,Г",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-84,15.06,Торстай,Хрустящие мюсли с творогом L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-85,15.06,Торстай,"Картофельное рагу L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-86,15.06,Торстай,"Морковь, обжаренная в воде L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-87,15.06,Торстай,"Паннакотта и ягодный джем L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-88,16.06,Цепь,"Суп из шпината с измельченным яйцом L,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-89,16.06,Цепь,Хрустящая курица с лаймовым айоли L,RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-90,16.06,Цепь,"Тушеная на ночь свиная шейка M,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-91,16.06,Цепь,"Блочный картофель M,G",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-92,16.06,Цепь,"Рис М,Г",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
-93,16.06,Цепь,"Фруктовый салат М,Ж",RU,10:30-15:00,2023-06-12 10:31:59 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+0,12.06,Maanantai,"Purjososekeitto L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+1,12.06,Maanantai,Broileris-kasvis-pastavuoka L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+2,12.06,Maanantai,"Makkaralajitelma jasinappimajoneesi L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+3,12.06,Maanantai,"Parmesan-kaprisperuna L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+4,12.06,Maanantai,Marjapiirakka ja vaniljakastike L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+5,13.06,Tiistai,"Borskeitto ja smetana M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+6,13.06,Tiistai,"Jauhelihakastike L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+7,13.06,Tiistai,"Perunamuusi L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+8,13.06,Tiistai,"Sienirisottoa ja parmesaania L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+9,13.06,Tiistai,"Vadelmakiisseli L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+10,14.06,Keskiviikko,Chili-juustokeitto ja krutonkia L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+11,14.06,Keskiviikko,"Lihapullia tomaattikastikkeessa L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+12,14.06,Keskiviikko,"Kanan paistileikettä ja savupaprikamajoneesia L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+13,14.06,Keskiviikko,Pastaa L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+14,14.06,Keskiviikko,"Gratinoitua parsaa M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+15,14.06,Keskiviikko,"Mustikkarahka L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+16,15.06,Torstai,"Tomaattikeitto ja basilikaöljy L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+17,15.06,Torstai,"Makkarastroganof ja smetana L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+18,15.06,Torstai,Rapeat muikut tillikermaviili L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+19,15.06,Torstai,"Perunamuhennos L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+20,15.06,Torstai,"Voissa paistetut porkkanat L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+21,15.06,Torstai,"Pannacotta ja marjahillo L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+22,16.06,Perjantai,"Pinaattikeitto murskattukananmuna L,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+23,16.06,Perjantai,Rapea kana lime aioli L,FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+24,16.06,Perjantai,"Yön yli haudutettu porsaan niska M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+25,16.06,Perjantai,"Lohkoperunat M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+26,16.06,Perjantai,"Riisi M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+27,16.06,Perjantai,"Hedelmäsalaatti M,G",FI,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+28,12.06,Monday,"Leek soup L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+29,12.06,Monday,Chicken and vegetable pasta L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+30,12.06,Monday,"Sausage assortment and mustard mayonnaise L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+31,12.06,Monday,"Parmesan-caprisperuna L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+32,12.06,Monday,Berry pie and custard L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+33,12.06,Monday,"Leek soup L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+34,12.06,Monday,Chicken and vegetable pasta L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+35,12.06,Monday,"Sausage assortment and mustard mayonnaise L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+36,12.06,Monday,"Parmesan-caprisperuna L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+37,12.06,Monday,Berry pie and custard L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+38,13.06,Tuesday,"Pepper soup and sour cream M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+39,13.06,Tuesday,"Meat and bonemeal sauces L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+40,13.06,Tuesday,"Mashed potatoes L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+41,13.06,Tuesday,"Mushroom risotto and parmesan L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+42,13.06,Tuesday,"Raspberry macaroons L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+43,14.06,Wednesday,Chili cheese soup and croutons L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+44,14.06,Wednesday,"Meatballs in tomato sauce L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+45,14.06,Wednesday,"Chicken cutlet with smoked paprika mayonnaise L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+46,14.06,Wednesday,Pasta L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+47,14.06,Wednesday,"Gratinated asparagus M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+48,14.06,Wednesday,"Blueberry cream L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+49,15.06,Torstai,"Tomato soup with basil oil L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+50,15.06,Torstai,"Macarastroganof and smetana L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+51,15.06,Torstai,Crispy muesli with cottage cheese L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+52,15.06,Torstai,"Potato stew L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+53,15.06,Torstai,"Carrots fried in water L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+54,15.06,Torstai,"Pannacotta and berry jam L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+55,16.06,Chain,"Spinach soup with crushed egg L,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+56,16.06,Chain,Crispy chicken lime aioli L,EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+57,16.06,Chain,"Overnight braised pork neck M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+58,16.06,Chain,"Block potatoes M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+59,16.06,Chain,"Rice M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+60,16.06,Chain,"Fruit salad M,G",EN,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+61,12.06,Понедельник,"Суп из лука-порея L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+62,12.06,Понедельник,Паста с курицей и овощами L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+63,12.06,Понедельник,"Колбасное ассорти и горчичный майонез L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+64,12.06,Понедельник,"Пармезан-каприсперуна L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+65,12.06,Понедельник,Ягодный пирог с заварным кремом L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+66,12.06,Понедельник,"Суп из лука-порея L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+67,12.06,Понедельник,Паста с курицей и овощами L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+68,12.06,Понедельник,"Колбасное ассорти и горчичный майонез L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+69,12.06,Понедельник,"Пармезан-каприсперуна L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+70,12.06,Понедельник,Ягодный пирог с заварным кремом L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+71,13.06,Вторник,"Суп с перцем и сметаной М,Ж",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+72,13.06,Вторник,"Соусы из мяса и костей мидии L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+73,13.06,Вторник,"Картофельное пюре L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+74,13.06,Вторник,"Ризотто с грибами и пармезаном L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+75,13.06,Вторник,"Макаруны с малиной L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+76,14.06,Среда,Сырный суп с чили и гренками L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+77,14.06,Среда,"Тефтели в томатном соусе L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+78,14.06,Среда,"Куриная котлета с майонезом из копченой паприки L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+79,14.06,Среда,Паста L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+80,14.06,Среда,"Спаржа на гратене М,Ж",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+81,14.06,Среда,"Черничный крем L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+82,15.06,Торстай,"Томатный суп с базиликовым маслом L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+83,15.06,Торстай,"Макарастроганоф и Сметана Л,Г",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+84,15.06,Торстай,Хрустящие мюсли с творогом L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+85,15.06,Торстай,"Картофельное рагу L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+86,15.06,Торстай,"Морковь, обжаренная в воде L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+87,15.06,Торстай,"Паннакотта и ягодный джем L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+88,16.06,Цепь,"Суп из шпината с измельченным яйцом L,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+89,16.06,Цепь,Хрустящая курица с лаймовым айоли L,RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+90,16.06,Цепь,"Тушеная на ночь свиная шейка M,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+91,16.06,Цепь,"Блочный картофель M,G",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+92,16.06,Цепь,"Рис М,Г",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60
+93,16.06,Цепь,"Фруктовый салат М,Ж",RU,10:30-15:00,2023-06-12 17:05:42 ,Kitchen,https://ravintolakitchen.fi/lounas-2/,€14.90/€11.60

@@ -2,6 +2,8 @@
 import os
 import logging
 import pandas as pd
+import csv
+from dotenv import load_dotenv
 from cachetools import TTLCache
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
@@ -10,7 +12,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from datetime import datetime
-import csv
 from datetime import datetime
 
 # Configure logging for your script
@@ -18,9 +19,8 @@ logging.basicConfig(level=logging.INFO)
 cache = TTLCache(maxsize=float('inf'), ttl=0.5)
 
 # Initialize bot and dispatcher
-#token = os.getenv('BOT_TOKEN')
-#print(token)
-token = "6011465609:AAEXd6yBibr1KGZoofKgkM13YeMQ8z_6aHk"
+load_dotenv()
+token = os.getenv('TELEGRAM_LOTTA_TOKEN')
 if not token:
     exit("Error: no token provided")
 bot = Bot(token=token)
