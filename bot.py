@@ -12,7 +12,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from datetime import datetime
-from datetime import datetime
 
 # Configure logging for your script
 logging.basicConfig(level=logging.INFO)

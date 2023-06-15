@@ -110,6 +110,9 @@ ENV/
 env.bak/
 venv.bak/
 temp_ignore
+app
+lambda-package
+python
 
 # Spyder project settings
 .spyderproject

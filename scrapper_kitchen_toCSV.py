@@ -60,7 +60,7 @@ def scrape_kitchen():
                     MenuString_FI = value
                     MenuString_EN = translator.translate_text(f"{MenuString_FI}", target_lang="EN-GB")
                     MenuString_RU = translator.translate_text(f"{MenuString_FI}", target_lang="RU")
-                    print(f'{menu_day_fi}, {lunch_time}, {count-1}, {MenuString_FI}')
+                    #print(f'{menu_day_fi}, {lunch_time}, {count-1}, {MenuString_FI}')
                     menu_list_fi.append(MenuString_FI)
                     menu_list_en.append(MenuString_EN)
                     menu_list_ru.append(MenuString_RU)
