@@ -6,16 +6,26 @@ import requests
 import pandas as pd
 import re
 import deepl
+import boto3
+import csv
+from io import StringIO
 from lxml import html
 from dotenv import load_dotenv
 from datetime import datetime
 
 # deepl library
 load_dotenv()
-token = os.getenv('TRANSLATE')
-if not token:
-    exit("Error: no token provided")
-translator = deepl.Translator(token)
+translate = os.getenv('TRANSLATE')
+if not translate:
+    exit("Error: no token provided for deepl")
+translator = deepl.Translator(translate)
+
+# aws tokens
+load_dotenv()
+aws_access_key_id = os.getenv('aws_access_key_id')
+aws_secret_access_key = os.getenv('aws_secret_access_key')
+if not aws_access_key_id or not aws_secret_access_key:
+    exit("Error: no token provided for aws")
 
 def scrape_Kehruuhuone():
     # Request the page
@@ -184,8 +194,24 @@ def scrape_Kehruuhuone():
 
     df = pd.concat([df_fi, df_en, df_ru])
     df = df.reset_index(drop=True)
-    return df.to_csv(f'{Restaurant_value}.csv')
-
+    return df#.to_csv(f'{Restaurant_value}.csv')
 
 if __name__ == "__main__":
-    scrape_Kehruuhuone()
+    # init session to aws
+    # session = boto3.Session(
+    #     aws_access_key_id=aws_access_key_id,
+    #     aws_secret_access_key=aws_access_key_id
+    # )
+    # s3 = session.resource('s3')
+    s3 = boto3.resource("s3")
+
+    # Convert DataFrame to CSV format in memory
+    df = scrape_Kehruuhuone()
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer, index=False)
+
+    # Upload CSV file to S3
+    bucket_name = 'ruokabot'
+    file_name = 'Kehruuhuone.csv'
+    s3.Object(bucket_name, file_name).put(Body=csv_buffer.getvalue())
+

@@ -21,3 +21,6 @@ https://medium.com/the-cloud-architect/getting-started-with-aws-lambda-layers-fo
 # about python package
 https://docs.aws.amazon.com/lambda/latest/dg/python-package.html
 
+
+## additing policies in aws
+https://towardsdatascience.com/how-to-upload-and-download-files-from-aws-s3-using-python-2022-4c9b787b15f2
