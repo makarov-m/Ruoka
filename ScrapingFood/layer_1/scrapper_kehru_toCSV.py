@@ -7,7 +7,6 @@ import pandas as pd
 import re
 import deepl
 import boto3
-import csv
 from io import StringIO
 from lxml import html
 from dotenv import load_dotenv
@@ -191,27 +190,15 @@ def scrape_Kehruuhuone():
     df_ru['LunchTime'] = '11:00-14:00'
     df_ru['MenuLink'] = url
     df_ru['Price'] = '€14.90/€12.90'
-
     df = pd.concat([df_fi, df_en, df_ru])
     df = df.reset_index(drop=True)
-    return df#.to_csv(f'{Restaurant_value}.csv')
 
-if __name__ == "__main__":
-    # init session to aws
-    # session = boto3.Session(
-    #     aws_access_key_id=aws_access_key_id,
-    #     aws_secret_access_key=aws_access_key_id
-    # )
-    # s3 = session.resource('s3')
     s3 = boto3.resource("s3")
-
-    # Convert DataFrame to CSV format in memory
-    df = scrape_Kehruuhuone()
     csv_buffer = StringIO()
     df.to_csv(csv_buffer, index=False)
-
-    # Upload CSV file to S3
     bucket_name = 'ruokabot'
     file_name = 'Kehruuhuone.csv'
-    s3.Object(bucket_name, file_name).put(Body=csv_buffer.getvalue())
+
+    return s3.Object(bucket_name, file_name).put(Body=csv_buffer.getvalue())
+
 

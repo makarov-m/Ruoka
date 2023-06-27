@@ -1,0 +1,36 @@
+{
+    "version": "2.0",
+    "routeKey": "POST /CaptainMagellan_bot",
+    "rawPath": "/CaptainMagellan_bot",
+    "rawQueryString": "",
+    "headers": {
+      "accept-encoding": "gzip, deflate",
+      "content-length": "266",
+      "content-type": "application/json",
+      "host": "d8pey2sxok.execute-api.us-east-1.amazonaws.com",
+      "x-amzn-trace-id": "Root=1-63c997ba-6254db11523e8e4a7ab40424",
+      "x-forwarded-for": "91.108.6.149",
+      "x-forwarded-port": "443",
+      "x-forwarded-proto": "https"
+    },
+    "requestContext": {
+      "accountId": "825301767520",
+      "apiId": "d8pey2sxok",
+      "domainName": "d8pey2sxok.execute-api.us-east-1.amazonaws.com",
+      "domainPrefix": "d8pey2sxok",
+      "http": {
+        "method": "POST",
+        "path": "/CaptainMagellan_bot",
+        "protocol": "HTTP/1.1",
+        "sourceIp": "91.108.6.149",
+        "userAgent": ""
+      },
+      "requestId": "fASlPhwMIAMEJZA=",
+      "routeKey": "POST /CaptainMagellan_bot",
+      "stage": "$default",
+      "time": "19/Jan/2023:19:19:22 +0000",
+      "timeEpoch": 1674155962990
+    },
+    "body": "{\"update_id\":720408463,\n\"message\":{\"message_id\":171,\"from\":{\"id\":256818231,\"is_bot\":false,\"first_name\":\"M.\",\"username\":\"mmakarov\",\"language_code\":\"en\"},\"chat\":{\"id\":256818231,\"first_name\":\"M.\",\"username\":\"mmakarov\",\"type\":\"private\"},\"date\":1674155835,\"text\":\"/fact\"}}",
+    "isBase64Encoded": false
+  }

@@ -3,7 +3,7 @@ from scrapper_kehru_toCSV import scrape_Kehruuhuone
 from scrapper_kitchen_toCSV import scrape_kitchen
 from scrapper_wolkoff_toCSV import scrape_wolkoff
 
-if __name__ == "__main__":
+def lambda_handler(event, context):
     # Run the functions
     try:
         scrape_Kehruuhuone()
@@ -14,3 +14,4 @@ if __name__ == "__main__":
         print("Wolkoff - ok")
     except:
         print("smth went wrong - error")
+    return print("execution finished")

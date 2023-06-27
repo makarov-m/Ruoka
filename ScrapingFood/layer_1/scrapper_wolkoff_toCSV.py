@@ -5,6 +5,8 @@ import os
 import requests
 import deepl
 import pandas as pd
+import boto3
+from io import StringIO
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -108,8 +110,11 @@ def scrape_wolkoff():
     df['MenuLink'] = url
     df['Price'] = '€14.90/€12.90'
     df = df.reset_index(drop=True)
-    
-    return df.to_csv(f'{Restaurant_value}.csv')
 
-if __name__ == "__main__":
-    scrape_wolkoff()
+    s3 = boto3.resource("s3")
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer, index=False)
+    bucket_name = 'ruokabot'
+    file_name = 'Wolkoff.csv'
+    
+    return s3.Object(bucket_name, file_name).put(Body=csv_buffer.getvalue())

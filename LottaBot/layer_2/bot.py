@@ -3,6 +3,10 @@ import os
 import logging
 import pandas as pd
 import csv
+import boto3
+import asyncio
+from datetime import datetime
+from io import StringIO
 from dotenv import load_dotenv
 from cachetools import TTLCache
 from aiogram import Bot, Dispatcher, executor, types
@@ -11,10 +15,9 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
-from datetime import datetime
 
-# Configure logging for your script
-logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+log.setLevel(os.environ.get('LOGGING_LEVEL', 'INFO').upper())
 cache = TTLCache(maxsize=float('inf'), ttl=0.5)
 
 # Initialize bot and dispatcher
@@ -56,7 +59,13 @@ dp.middleware.setup(ThrottleMiddleware())
 
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
-    df = pd.read_csv(f'{restaurant}.csv')
+    s3 = boto3.client('s3')
+    bucket_name = 'ruokabot'
+    object_key = f'{restaurant}.csv'
+    response = s3.get_object(Bucket=bucket_name, Key=object_key)
+    body = response['Body']
+    csv_string = body.read().decode('utf-8')
+    df = pd.read_csv(StringIO(csv_string))
     df['Date'] = df['Date'].astype(str)
     df['Date'] = pd.to_datetime(df['Date'], format='%d.%m')
     df['Date'] = df['Date'].dt.strftime('%d.%m')
@@ -76,27 +85,12 @@ def read_menu(restaurant: str, lang: str, date: str):
         query_link.to_string(index=False)
         )
 
-def write_user_info(user_username, timestamp):
-    file_exists = os.path.isfile('user_info.csv')
-    with open('user_info.csv', 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=';')
-        if not file_exists:
-            writer.writerow(['user_username', 'timestamp'])  # Write header if the file is newly created
-        writer.writerow([user_username, timestamp])
-
 # Handlers
-@dp.message_handler(commands=['start'])
-async def cmd_start(message: types.Message, state: State):
-    if state is None:
-        logging.info(message.from_user.id, message.from_user.username)
-        # Write user information to the CSV file
-        user_username = message.from_user.username
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        write_user_info(user_username, timestamp)
-        await message.answer("Select Language", reply_markup=keyboard_lang)
-        await UserState.language.set()
-    else:
-        await message.answer("The bot is already running. You can select a new language or stop the bot.")
+@dp.message_handler(commands=['start'], state=UserState.stopped)
+async def cmd_start_after_stop(message: types.Message, state: State):
+    await message.answer("Bot started. Select Language", reply_markup=keyboard_lang)
+    # Set the user state to 'language'
+    await UserState.language.set()
 
 @dp.message_handler(commands=['stop'], state="*")
 async def cmd_stop(message: types.Message, state: State):
@@ -104,12 +98,6 @@ async def cmd_stop(message: types.Message, state: State):
     # Clear all states and set 'stopped' state
     await state.finish()
     await UserState.stopped.set()
-
-@dp.message_handler(commands=['start'], state=UserState.stopped)
-async def cmd_start_after_stop(message: types.Message, state: State):
-    await message.answer("Bot started. Select Language", reply_markup=keyboard_lang)
-    # Set the user state to 'language'
-    await UserState.language.set()
 
 @dp.message_handler(state=UserState.language)
 async def process_language(message: types.Message, state: State):
@@ -138,3 +126,33 @@ async def process_restaurant(message: types.Message, state: State):
 # Main function
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+
+# async def process_event(event, dp: Dispatcher):
+#     """
+#     Converting an AWS Lambda event to an update and handling that
+#     update.
+#     """
+#     log.debug('Update: ' + str(event))
+#     Bot.set_current(dp.bot)
+#     update = types.Update.to_object(event)
+#     await dp.process_update(update)
+
+# async def main(event):
+#     """
+#     Asynchronous wrapper for initializing the bot and dispatcher,
+#     and launching subsequent functions.
+#     """
+
+#     # Bot and dispatcher initialization
+#     # bot = Bot(os.environ.get('TELEGRAM_LOTTA_TOKEN'))
+#     # storage = MemoryStorage()
+#     # dp = Dispatcher(bot, storage=storage)
+#     await process_event(event, dp)
+
+#     return 'ok'
+
+# def lambda_handler(event):
+#     """AWS Lambda handler."""
+
+#     return asyncio.get_event_loop().run_until_complete(main(event))
+

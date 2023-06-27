@@ -4,6 +4,8 @@ import os
 import requests
 import deepl
 import pandas as pd
+import boto3
+from io import StringIO
 from datetime import datetime
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -119,7 +121,11 @@ def scrape_kitchen():
     df = df.reset_index(drop=True)
     df = df.drop_duplicates()
 
-    return df.to_csv(f'{Restaurant_value}.csv')
+    s3 = boto3.resource("s3")
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer, index=False)
+    bucket_name = 'ruokabot'
+    file_name = 'Kitchen.csv'
 
-if __name__ == "__main__":
-    scrape_kitchen()
+    return s3.Object(bucket_name, file_name).put(Body=csv_buffer.getvalue())
+
