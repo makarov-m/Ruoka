@@ -119,6 +119,10 @@ async def cmd_start_after_stop(message: types.Message, state: State):
     # Set the user state to 'language'
     await UserState.language.set()
 
+@dp.message_handler(commands=['info'], state="*")
+async def cmd_info(message: types.Message, state: State):
+    await message.answer("If you want to change language, please stop and start the bot again.")
+
 @dp.message_handler(state=UserState.language)
 async def process_language(message: types.Message, state: State):
     if message.text in ["FI", "EN", "RU"]:
@@ -132,6 +136,12 @@ async def process_language(message: types.Message, state: State):
 @dp.message_handler(state=UserState.restaurant)
 async def process_restaurant(message: types.Message, state: State):
     if message.text in ["Wolkoff", "Kitchen", "Kehruuhuone"]:
+        # Check if the current day is Saturday or Sunday
+        current_day = datetime.now().weekday()
+        if current_day in [5, 6]:  # Saturday is 5 and Sunday is 6 in Python's weekday format
+            await message.answer("There is no lunch on Saturdays and Sundays.")
+            return
+
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')

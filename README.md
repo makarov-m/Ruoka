@@ -151,8 +151,8 @@ sudo yum install python3-pip
 pip3 --version
 pip install -r requirements.txt
 python3 bot.py
-
+# for the updates
+scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
-
 
 
