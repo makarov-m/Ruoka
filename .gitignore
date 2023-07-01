@@ -113,6 +113,8 @@ temp_ignore
 app
 lambda-package
 python
+RuokaPerm.pem
+.DS_Store
 
 # Spyder project settings
 .spyderproject

@@ -2,3 +2,4 @@ pandas==2.0.2
 aiogram==2.9.2
 cachetools
 python-dotenv
+boto3
