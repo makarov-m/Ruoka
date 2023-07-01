@@ -126,7 +126,7 @@ Here is a configuration for Modays at 8.15 AM:
 **10. Create a bot using BotFather**
 
 Short description provided here: 
-- [Medium. create a telegram bot](https://medium.com/shibinco/create-a-telegram-bot-using-botfather-and-get-the-api-token-900ba00e0f39)
+- [Medium. Create a telegram bot](https://medium.com/shibinco/create-a-telegram-bot-using-botfather-and-get-the-api-token-900ba00e0f39)
 
 **11. Create AWS instance and grant access to S3**
 
@@ -138,7 +138,7 @@ Short description provided here:
 ```bash
 # in local terminal
 zip -r LottaBot.zip Ruoka/LottaBot
-scp -i /Users/max/Documents/GitHub/Ruoka/RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot.zip ec2-user@54.88.51.244:~
+scp -i /.../Ruoka/RuokaPerm.pem /.../Ruoka/LottaBot.zip ec2-user@<IP>:~
 ```
 
 ```bash
