@@ -155,4 +155,53 @@ python3 bot.py
 scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
 
+**13. Create service at your instance**
+It might happen that your bot can stop after termination of the terminal. To create a system service for your Python script, you need to create a service configuration file. Here's an example of how to create and configure the service file:
+
+```bash
+sudo nano /etc/systemd/system/bot.service
+```
+
+In the text editor, add the appropriate service configuration content. Here's an example:
+```bash
+[Unit]
+Description=Your Bot Service
+After=network.target
+
+[Service]
+User=ec2-user
+ExecStart=/usr/bin/python3 /path/to/bot.py
+WorkingDirectory=/path/to/working/directory
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Replace /path/to/bot.py with the actual path to your bot.py script and /path/to/working/directory with the directory where your script resides.
+
+Save the file (Ctrl + O), exit the editor (Ctrl + X).
+
+Once you've confirmed that the bot.service file exists in the correct directory, try enabling the service again:
+
+```bash
+sudo systemctl enable bot.service
+```
+
+```bash
+sudo systemctl start bot.service
+```
+
+You should now have your Python script running as a system service. You can check the status of the service using:
+```bash
+sudo systemctl status bot.service
+```
+If there are any errors, you can view the logs using:
+```bash
+If there are any errors, you can view the logs using:
+```
+
+Remember to ensure that the bot.py script has executable permissions (chmod +x bot.py) and that it specifies the Python interpreter on the first line (e.g., #!/usr/bin/python3) to ensure it can be executed properly.
+
+
 
