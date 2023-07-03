@@ -12,7 +12,9 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
-from datetime import datetime
+#from datetime import datetime
+import datetime
+import pytz
 from io import StringIO
 
 # Configure logging for your script
@@ -137,23 +139,37 @@ async def process_language(message: types.Message, state: State):
 async def process_restaurant(message: types.Message, state: State):
     if message.text in ["Wolkoff", "Kitchen", "Kehruuhuone"]:
         # Check if the current day is Saturday or Sunday
-        current_day = datetime.now().weekday()
+        finland_tz = pytz.timezone('Europe/Helsinki')
+        # Get the current time in the Finland time zone
+        current_time = datetime.datetime.now(tz=finland_tz)
+        current_day = current_time.weekday()
         if current_day in [5, 6]:  # Saturday is 5 and Sunday is 6 in Python's weekday format
             await message.answer("There is no lunch on Saturdays and Sundays.")
             return
-
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')
+        restaurant = message.text
         # Set the date parameter to the current date in the format '%d.%m'
-        date = datetime.now().strftime('%d.%m')
+        date = current_time.strftime('%d.%m')
         # Call the read_menu function with appropriate arguments
-        menu = read_menu(message.text, language, date)
-        # Format the menu information into a string
-        menu_text = f"Weekday: {menu[0]}\nDate: {menu[1]}\nTime: {menu[2]}\nMenu: {menu[3]}\nPrice: {menu[4]}\nLink: {menu[5]}"
+        logging.info(f"Restaurant - {restaurant}, language - {language}, date - {date}")
+        menu = read_menu(restaurant, language, date)
+        if len(menu[3])<=12:
+            if restaurant == "Wolkoff":
+                menu_text = "No menu data available for Wolkoff. Visit https://wolkoff.fi/ruoka-juoma/#post-1247 for more information."
+            elif restaurant == "Kitchen":
+                menu_text = "No menu data available for Kitchen. Visit https://ravintolakitchen.fi/lounas-2/ for more information."
+            elif restaurant == "Kehruuhuone":
+                menu_text = "No menu data available for Kehruuhuone. Visit https://www.raflaamo.fi/fi/ravintola/lappeenranta/kehruuhuone/menu/lounas?menuGroupId=2026&menuGroupTitle=burgerit for more information."
+        else:
+            # Format the menu information into a string
+            menu_text = f"Weekday: {menu[0]}\nDate: {menu[1]}\nTime: {menu[2]}\nMenu: {menu[3]}\nPrice: {menu[4]}\nLink: {menu[5]}"
+        
         await message.answer(menu_text)
     else:
         await message.answer("Invalid restaurant selection")
+
 
 # Main function
 if __name__ == '__main__':
