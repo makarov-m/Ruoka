@@ -57,10 +57,6 @@ class ThrottleMiddleware(BaseMiddleware):
         
 dp.middleware.setup(ThrottleMiddleware())      
 
-# Create an instance of DynamoDBStorage
-dynamodb_storage = DynamoDBStorage(table_name='your_table_name', aws_region='your_aws_region')
-
-
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
     s3 = boto3.client('s3')
