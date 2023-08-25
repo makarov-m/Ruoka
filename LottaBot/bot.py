@@ -17,7 +17,7 @@ import pytz
 from io import StringIO
 
 # Configure logging for your script
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 cache = TTLCache(maxsize=float('inf'), ttl=0.5)
 
 # Initialize bot and dispatcher
@@ -38,7 +38,7 @@ keyboard_lang = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True
 Wolkoff = KeyboardButton('Wolkoff')
 Kitchen = KeyboardButton('Kitchen')
 Kehruuhuone = KeyboardButton('Kehruuhuone')
-keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(Wolkoff, Kitchen, Kehruuhuone)
+keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False).row(Wolkoff, Kitchen, Kehruuhuone)
 
 # User states
 class UserState(StatesGroup):
@@ -55,7 +55,11 @@ class ThrottleMiddleware(BaseMiddleware):
         else:  # skip processing
             raise CancelHandler
         
-dp.middleware.setup(ThrottleMiddleware())       
+dp.middleware.setup(ThrottleMiddleware())      
+
+# Create an instance of DynamoDBStorage
+dynamodb_storage = DynamoDBStorage(table_name='your_table_name', aws_region='your_aws_region')
+
 
 # Read menu function
 def read_menu(restaurant: str, lang: str, date: str):
@@ -85,14 +89,6 @@ def read_menu(restaurant: str, lang: str, date: str):
         query_link.to_string(index=False)
     )
 
-def write_user_info(user_username, timestamp):
-    file_exists = os.path.isfile('user_info.csv')
-    with open('user_info.csv', 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=';')
-        if not file_exists:
-            writer.writerow(['user_username', 'timestamp'])  # Write header if the file is newly created
-        writer.writerow([user_username, timestamp])
-
 # Handlers
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message, state: State):
@@ -101,7 +97,6 @@ async def cmd_start(message: types.Message, state: State):
         # Write user information to the CSV file
         user_username = message.from_user.username
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        write_user_info(user_username, timestamp)
         await message.answer("Select Language", reply_markup=keyboard_lang)
         await UserState.language.set()
     else:
@@ -166,6 +161,10 @@ async def process_restaurant(message: types.Message, state: State):
             menu_text = f"Weekday: {menu[0]}\nDate: {menu[1]}\nTime: {menu[2]}\nMenu: {menu[3]}\nPrice: {menu[4]}\nLink: {menu[5]}"
         
         await message.answer(menu_text)
+        # Prompt the user to select a new restaurant
+        await message.answer("Select Restaurant", reply_markup=keyboard_rest)
+        # Transition the state back to 'restaurant' for the user to select again
+        await UserState.restaurant.set()
     else:
         await message.answer("Invalid restaurant selection")
 
