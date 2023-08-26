@@ -2,7 +2,6 @@
 import os
 import logging
 import pandas as pd
-import csv
 import boto3
 from dotenv import load_dotenv
 from cachetools import TTLCache
@@ -15,6 +14,8 @@ from aiogram.dispatcher.middlewares import BaseMiddleware
 import datetime
 import pytz
 from io import StringIO
+from dynamodb_states import DynamoDBStorage
+
 
 # Configure logging for your script
 logging.basicConfig(level=logging.DEBUG)
@@ -28,6 +29,9 @@ if not token:
 bot = Bot(token=token)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
+
+#Initialize DynamoDBStorage
+dynamodb_storage = DynamoDBStorage("Ruokabot", "us-east-1")
 
 # Keyboard buttons
 lang_fi = KeyboardButton('FI')
@@ -119,6 +123,8 @@ async def cmd_info(message: types.Message, state: State):
 async def process_language(message: types.Message, state: State):
     if message.text in ["FI", "EN", "RU"]:
         await state.update_data(language=message.text)
+        dynamodb_storage.set_state(str(message.chat.id), str(message.from_user.id), {'language': message.text})
+        print("Language selected and state updated.")
         await message.answer("Select Restaurant", reply_markup=keyboard_rest)
         # Transition the state from 'language' to 'restaurant'
         await UserState.restaurant.set()
@@ -133,19 +139,22 @@ async def process_restaurant(message: types.Message, state: State):
         # Get the current time in the Finland time zone
         current_time = datetime.datetime.now(tz=finland_tz)
         current_day = current_time.weekday()
-        if current_day in [5, 6]:  # Saturday is 5 and Sunday is 6 in Python's weekday format
+        if current_day in [5, 6]:
             await message.answer("There is no lunch on Saturdays and Sundays.")
             return
+        
         # Access the user's selected language from state data
         user_data = await state.get_data()
         language = user_data.get('language')
         restaurant = message.text
         # Set the date parameter to the current date in the format '%d.%m'
         date = current_time.strftime('%d.%m')
+
         # Call the read_menu function with appropriate arguments
         logging.info(f"Restaurant - {restaurant}, language - {language}, date - {date}")
         menu = read_menu(restaurant, language, date)
-        if len(menu[3])<=12:
+        
+        if len(menu[3]) <= 12:
             if restaurant == "Wolkoff":
                 menu_text = "No menu data available for Wolkoff. Visit https://wolkoff.fi/ruoka-juoma/#post-1247 for more information."
             elif restaurant == "Kitchen":
@@ -157,12 +166,17 @@ async def process_restaurant(message: types.Message, state: State):
             menu_text = f"Weekday: {menu[0]}\nDate: {menu[1]}\nTime: {menu[2]}\nMenu: {menu[3]}\nPrice: {menu[4]}\nLink: {menu[5]}"
         
         await message.answer(menu_text)
+        
         # Prompt the user to select a new restaurant
         await message.answer("Select Restaurant", reply_markup=keyboard_rest)
         # Transition the state back to 'restaurant' for the user to select again
         await UserState.restaurant.set()
+        
+        # Update user's restaurant state in DynamoDB after state transition
+        dynamodb_storage.set_state(str(message.chat.id), str(message.from_user.id), {'language': message.text})
     else:
         await message.answer("Invalid restaurant selection")
+
 
 
 # Main function
