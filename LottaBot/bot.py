@@ -14,31 +14,38 @@ from aiogram.dispatcher.middlewares import BaseMiddleware
 import datetime
 import pytz
 from io import StringIO
+from dynamodb_states import DynamoDBStorage
+
 # Configure logging for your script
 logging.basicConfig(level=logging.DEBUG)
 cache = TTLCache(maxsize=float('inf'), ttl=0.5)
+
 # Initialize bot and dispatcher
 load_dotenv()
-token = os.getenv('TELEGRAM_LOTTA_TOKEN')
+token = os.getenv('TELEGRAM_LOTTA_TOKEN_TEST')
 if not token:
     exit("Error: no token provided")
 bot = Bot(token=token)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
+
 # Keyboard buttons
 lang_fi = KeyboardButton('FI')
 lang_en = KeyboardButton('EN')
 lang_ru = KeyboardButton('RU')
 keyboard_lang = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).row(lang_fi, lang_en, lang_ru)
+
 Wolkoff = KeyboardButton('Wolkoff')
 Kitchen = KeyboardButton('Kitchen')
 Kehruuhuone = KeyboardButton('Kehruuhuone')
 keyboard_rest = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False).row(Wolkoff, Kitchen, Kehruuhuone)
+
 # User states
 class UserState(StatesGroup):
     language = State()
     restaurant = State()
     stopped = State()
+
 # Middleware for throttling. Ignores any repeated requests for 0.5 sec
 class ThrottleMiddleware(BaseMiddleware):
     async def on_process_message(self, message: types.Message, data: dict):
@@ -77,41 +84,89 @@ def read_menu(restaurant: str, lang: str, date: str):
         query_price.to_string(index=False),
         query_link.to_string(index=False)
     )
+
 # Handlers
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message, state: State):
     if state is None:
         logging.info(message.from_user.id, message.from_user.username)
-        # Write user information to the CSV file
-        user_username = message.from_user.username
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         await message.answer("Select Language", reply_markup=keyboard_lang)
+        # update DB
+        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+        user_username = message.from_user.username
+        dynamodb_storage.set_state(
+            str(message.chat.id), str(message.from_user.id),
+            {
+                'user_timestamp': user_timestamp_str,
+                'BotRunning': True,
+            },
+            str(user_username)
+        )
         await UserState.language.set()
     else:
         await message.answer("The bot is already running. You can select a new language or stop the bot.")
+
 @dp.message_handler(commands=['stop'], state="*")
 async def cmd_stop(message: types.Message, state: State):
     await message.answer("Bot stopped.")
+    # update DB
+    user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+    user_username = message.from_user.username
+    dynamodb_storage.set_state(
+        str(message.chat.id), str(message.from_user.id),
+        {
+            'user_timestamp': user_timestamp_str,
+            'BotRunning': False,
+        },
+        str(user_username)
+    )
     # Clear all states and set 'stopped' state
     await state.finish()
     await UserState.stopped.set()
+
 @dp.message_handler(commands=['start'], state=UserState.stopped)
 async def cmd_start_after_stop(message: types.Message, state: State):
     await message.answer("Bot started. Select Language", reply_markup=keyboard_lang)
+    # update DB
+    user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+    user_username = message.from_user.username
+    dynamodb_storage.set_state(
+        str(message.chat.id), str(message.from_user.id),
+        {
+            'user_timestamp': user_timestamp_str,
+            'BotRunning': True,
+        },
+        str(user_username)
+    )
     # Set the user state to 'language'
     await UserState.language.set()
+
 @dp.message_handler(commands=['info'], state="*")
 async def cmd_info(message: types.Message, state: State):
     await message.answer("If you want to change language, please stop and start the bot again.")
+
 @dp.message_handler(state=UserState.language)
 async def process_language(message: types.Message, state: State):
     if message.text in ["FI", "EN", "RU"]:
         await state.update_data(language=message.text)
         await message.answer("Select Restaurant", reply_markup=keyboard_rest)
+        # update DB
+        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+        user_username = message.from_user.username
+        dynamodb_storage.set_state(
+            str(message.chat.id), str(message.from_user.id),
+            {
+                'user_timestamp': user_timestamp_str,
+                'language': message.text,
+                'BotRunning': True,
+            },
+            str(user_username)
+        )
         # Transition the state from 'language' to 'restaurant'
         await UserState.restaurant.set()
     else:
         await message.answer("Invalid language selection")
+
 @dp.message_handler(state=UserState.restaurant)
 async def process_restaurant(message: types.Message, state: State):
     if message.text in ["Wolkoff", "Kitchen", "Kehruuhuone"]:
@@ -146,10 +201,24 @@ async def process_restaurant(message: types.Message, state: State):
         await message.answer(menu_text)
         # Prompt the user to select a new restaurant
         await message.answer("Select Restaurant", reply_markup=keyboard_rest)
+        # update DB
+        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+        user_username = message.from_user.username
+        dynamodb_storage.set_state(
+            str(message.chat.id), str(message.from_user.id),
+            {
+                'user_timestamp': user_timestamp_str,
+                'restaurant': restaurant,
+            },
+            str(user_username)
+        )
         # Transition the state back to 'restaurant' for the user to select again
         await UserState.restaurant.set()
     else:
         await message.answer("Invalid restaurant selection")
+
 # Main function
 if __name__ == '__main__':
+    # init storage
+    dynamodb_storage = DynamoDBStorage("Ruokabot", "us-east-1")
     executor.start_polling(dp, skip_updates=True)
