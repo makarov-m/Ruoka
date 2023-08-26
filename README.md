@@ -153,7 +153,13 @@ pip install -r requirements.txt
 python3 bot.py
 # for the updates
 scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
+scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
+
+
+
+
+
 
 **13. Create service at your instance**
 It might happen that your bot can stop after termination of the terminal. To create a system service for your Python script, you need to create a service configuration file. Here's an example of how to create and configure the service file:
