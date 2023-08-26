@@ -123,7 +123,7 @@ async def cmd_info(message: types.Message, state: State):
 async def process_language(message: types.Message, state: State):
     if message.text in ["FI", "EN", "RU"]:
         await state.update_data(language=message.text)
-        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  # Convert datetime to string
+        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
         # update DB
         dynamodb_storage.set_state(
             str(message.chat.id), str(message.from_user.id),
@@ -181,10 +181,11 @@ async def process_restaurant(message: types.Message, state: State):
         await UserState.restaurant.set()
         
         # Update user's restaurant state in DynamoDB after state transition
+        user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S') 
         dynamodb_storage.set_state(
             str(message.chat.id), str(message.from_user.id),
             {
-                'user_timestamp': datetime.datetime.fromtimestamp(message.date),
+                'user_timestamp': user_timestamp_str,
                 'language': language,
                 'restaurant': message.text
             }
