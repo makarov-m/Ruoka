@@ -133,6 +133,8 @@ Short description provided here:
 - [Towardsdatascience. Run your python scripts in amazon ec2](https://towardsdatascience.com/how-to-run-your-python-scripts-in-amazon-ec2-instances-demo-8e56e76a6d24)
 - [AWS. EC2 instance access s3 bucket](https://repost.aws/knowledge-center/ec2-instance-access-s3-bucket)
 
+similarly if we want to grant access EC2 instance to S3 and DynamoDB we need to create a role and assign it to the instance.
+
 **12. ZIP your bot folder and upload to EC2 instance**
 
 ```bash
@@ -143,6 +145,10 @@ scp -i /.../Ruoka/RuokaPerm.pem /.../Ruoka/LottaBot.zip ec2-user@<IP>:~
 
 ```bash
 # in EC terminal
+sudo -i
+mkdir home
+cd home
+mkdir ec2-user
 cd home/ec2-user/
 unzip LottaBot.zip
 cd LottaBot
@@ -155,11 +161,6 @@ python3 bot.py
 scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
 scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
-
-
-
-
-
 
 **13. Create service at your instance**
 It might happen that your bot can stop after termination of the terminal. To create a system service for your Python script, you need to create a service configuration file. Here's an example of how to create and configure the service file:
