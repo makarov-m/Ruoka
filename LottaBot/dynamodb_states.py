@@ -14,7 +14,8 @@ class DynamoDBStorage:
                 'user_id': user_id,
                 'user_timestamp': state.get('user_timestamp'),
                 'language': state.get('language'),
-                'restaurant': state.get('restaurant')
+                'restaurant': state.get('restaurant'),
+                'BotRunning': state.get('BotRunning', False)  # Default to False if not provided
             }
         )
 
@@ -25,22 +26,24 @@ class DynamoDBStorage:
             return {
                 'user_timestamp': item.get('user_timestamp'),
                 'language': item.get('language'),
-                'restaurant': item.get('restaurant')
+                'restaurant': item.get('restaurant'),
+                'BotRunning': item.get('BotRunning', False)  # Default to False if not present
             }
         return None
 
     # Other methods (set_data, get_data, delete) go here
 
 # Initialize DynamoDBStorage
-storage = DynamoDBStorage("Ruokabot", "us-east-1")
+# storage = DynamoDBStorage("Ruokabot", "us-east-1")
 
-# Set the state for a specific chat and user
-# chat_id = "123456789"  # Replace with the actual chat ID
-# user_id = "987654321"  # Replace with the actual user ID
+# Example usage:
+# chat_id = "123456789"
+# user_id = "987654321"
 # state = {
-#     'date': '2023-08-25',
+#     'user_timestamp': '2023-08-25 12:34:56',
 #     'language': 'en',
-#     'restaurant': 'example_restaurant'
+#     'restaurant': 'example_restaurant',
+#     'BotRunning': True  # You can set this value based on your use case
 # }
 
 # storage.set_state(chat_id, user_id, state)

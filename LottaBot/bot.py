@@ -105,6 +105,15 @@ async def cmd_start(message: types.Message, state: State):
 @dp.message_handler(commands=['stop'], state="*")
 async def cmd_stop(message: types.Message, state: State):
     await message.answer("Bot stopped.")
+    # update DB
+    user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+    dynamodb_storage.set_state(
+        str(message.chat.id), str(message.from_user.id),
+        {
+            'user_timestamp': user_timestamp_str,
+            'BotRunning': False,
+        }
+    )
     # Clear all states and set 'stopped' state
     await state.finish()
     await UserState.stopped.set()
@@ -112,6 +121,15 @@ async def cmd_stop(message: types.Message, state: State):
 @dp.message_handler(commands=['start'], state=UserState.stopped)
 async def cmd_start_after_stop(message: types.Message, state: State):
     await message.answer("Bot started. Select Language", reply_markup=keyboard_lang)
+    # update DB
+    user_timestamp_str = message.date.strftime('%Y-%m-%d %H:%M:%S')  
+    dynamodb_storage.set_state(
+        str(message.chat.id), str(message.from_user.id),
+        {
+            'user_timestamp': user_timestamp_str,
+            'BotRunning': True,
+        }
+    )
     # Set the user state to 'language'
     await UserState.language.set()
 
