@@ -12,7 +12,7 @@ class DynamoDBStorage:
             Item={
                 'chat_id': chat_id,
                 'user_id': user_id,
-                'date': state.get('date'),
+                'user_timestamp': state.get('user_timestamp'),
                 'language': state.get('language'),
                 'restaurant': state.get('restaurant')
             }
@@ -23,7 +23,7 @@ class DynamoDBStorage:
         item = response.get('Item')
         if item:
             return {
-                'date': item.get('date'),
+                'user_timestamp': item.get('user_timestamp'),
                 'language': item.get('language'),
                 'restaurant': item.get('restaurant')
             }
