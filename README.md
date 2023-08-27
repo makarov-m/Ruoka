@@ -7,12 +7,18 @@ To access the bot functionality please visit:
 
 ![](pics/t_me-Ruokanen_bot.jpg)
 
+List of available commands for the Bot:
+- start - starts the bot
+- info - provides additional information
+- stop - stops the bot
 
-## App architecture
+For communication with a but please use available keyboard buttons, it doesn't reply if the command is unknown.
+
+## App Architecture
 
 ![](pics/lottabot.png)
 
-## Configuration
+## AWS Configuration
 
 **0. Create Lambda Function in AWS**
 
@@ -33,6 +39,7 @@ Ruoka
 ├─ LottaBot
 │  ├─ .env
 │  ├─ bot.py
+│  ├─ dynamodb_states.py
 │  └─ requirements.txt
 ├─ README.md
 ├─ ScrapingFood
@@ -47,9 +54,9 @@ Ruoka
 └─ pics
 ```
 
-- `LottaBot` folder which contains the script `bot.py` which should be launched at the AWS instance, `requirements.txt` and `.env` (don't forget to put) file which should contain token to your Telegram bot. It can be packed in a zip file and uploaded afterwards to the inctance. 
+- `LottaBot` folder which contains the script `bot.py` which should be launched at the AWS instance, `requirements.txt` and `.env` (don't forget to put) file which should contain token to your Telegram bot. Additionaly, I decided to save inputs from users to monitor how many users are using this service that is why `dynamodb_states.py` file was created. All content can be packed in a zip file and uploaded afterwards to the inctance. 
 - `ScrappingFood` folder contains AWS Lambda function `lambda_function.py` (will be used in AWS), environment variables, scraping scripts and it's dependencies.
-- `RuokaPerm.pem` permission certificate to your AWS instance.
+- `RuokaPerm.pem` permission certificate to your AWS instance. It required for copying files from your local machine.
 
 **2. Optional. Create and activate virtual environment if you want to run and update the code.**
 
@@ -58,7 +65,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-**3. run the following commands:**
+**3. run the following commands to prepare your local env for further deployment:**
 
 ```bash
 # preparing layer for lambda function
@@ -69,7 +76,7 @@ pip install -r requirements.txt -t ./python
 ```
 make sure that you don't have numpy 1.2.5. in your lambda layer, if exists then delete folders related to numpy. It can cause an error with Python v 3.9.
 
-**4. run the following commands:**
+**4. run the following commands to prepare your local env for further deployment:**
 
 ```bash
 # move files from layer_1 to python dir
@@ -100,7 +107,7 @@ here are some useful links about layers in AWS:
 - [YouTube. How to use Layers in AWS lambda](https://www.youtube.com/watch?v=uiRATBv8IQA&t=280s)
 - [Medium. Getting started with aws lambdalayers](https://medium.com/the-cloud-architect/getting-started-with-aws-lambda-layers-for-python-6e10b1f9a5d)
 
-**7. Create S3 bucket and give all nececcary permisions to Lambda for reading and writing in AWS S3 service**
+**7. Create S3 bucket and give all nececcary permisions (read and write) to Lambda for reading and writing in AWS S3 service**
 
 - [Towardsdatascience. Additing policies in AWS](https://towardsdatascience.com/how-to-upload-and-download-files-from-aws-s3-using-python-2022-4c9b787b15f2)
 - [AWS. Adding policies to AWS lambda](https://repost.aws/knowledge-center/lambda-execution-role-s3-bucket)
@@ -128,23 +135,38 @@ Here is a configuration for Modays at 8.15 AM:
 Short description provided here: 
 - [Medium. Create a telegram bot](https://medium.com/shibinco/create-a-telegram-bot-using-botfather-and-get-the-api-token-900ba00e0f39)
 
-**11. Create AWS instance and grant access to S3**
+**11. Create AWS instance and grant access to S3 and DynamoDB**
 
+Create role in AWS IAM
+
+![](pics/CreateRole.png)
+
+Attache all permissions reqired to that role (EC2 instance should read S3 and have full access to DynamoDB)
+
+![](pics/AttachPermissions.png)
+
+Assign new role created to your EC2 instance
+
+![](pics/RoleAssigment.png)
+
+More information available here:
 - [Towardsdatascience. Run your python scripts in amazon ec2](https://towardsdatascience.com/how-to-run-your-python-scripts-in-amazon-ec2-instances-demo-8e56e76a6d24)
 - [AWS. EC2 instance access s3 bucket](https://repost.aws/knowledge-center/ec2-instance-access-s3-bucket)
 
-similarly if we want to grant access EC2 instance to S3 and DynamoDB we need to create a role and assign it to the instance.
 
 **12. ZIP your bot folder and upload to EC2 instance**
 
 ```bash
-# in local terminal
+# create zip package in local terminal
 zip -r LottaBot.zip Ruoka/LottaBot
-scp -i /.../Ruoka/RuokaPerm.pem /.../Ruoka/LottaBot.zip ec2-user@<IP>:~
+# upload your package to AWS instance 
+scp -i /<YOUR_PATH>/Ruoka/RuokaPerm.pem /.../Ruoka/LottaBot.zip ec2-user@<YOUR_IP>:~
 ```
+Where <YOUR_PATH> is your local path and <YOUR_IP> is your public inctance IP.
 
+After that you need to create folders and install dependencies.
 ```bash
-# in EC terminal
+# in EC2 terminal 
 sudo -i
 mkdir home
 cd home
@@ -157,12 +179,14 @@ sudo yum install python3-pip
 pip3 --version
 pip install -r requirements.txt
 python3 bot.py
-# for the updates
-scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
-scp -i /.../RuokaPerm.pem /Users/max/Documents/GitHub/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
+# for the future updates these commands can be useful
+scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
+scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
+Where <YOUR_PATH> is your local path and <YOUR_IP> is your public inctance IP.
 
 **13. Create service at your instance**
+
 It might happen that your bot can stop after termination of the terminal. To create a system service for your Python script, you need to create a service configuration file. Here's an example of how to create and configure the service file:
 
 ```bash
@@ -170,6 +194,7 @@ sudo nano /etc/systemd/system/bot.service
 ```
 
 In the text editor, add the appropriate service configuration content. Here's an example:
+
 ```bash
 [Unit]
 Description=Your Bot Service
@@ -187,7 +212,7 @@ WantedBy=multi-user.target
 
 Replace /path/to/bot.py with the actual path to your bot.py script and /path/to/working/directory with the directory where your script resides.
 
-Save the file (Ctrl + O), exit the editor (Ctrl + X).
+Save the file **(Ctrl + O)**, exit the editor **(Ctrl + X)**.
 
 Once you've confirmed that the bot.service file exists in the correct directory, try enabling the service again:
 

@@ -115,6 +115,7 @@ lambda-package
 python
 RuokaPerm.pem
 .DS_Store
+*.DS_Store
 
 # Spyder project settings
 .spyderproject
