@@ -65,7 +65,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-**3. run the following commands to prepare your local env for further deployment:**
+**3. Run the following commands to prepare your local env for further deployment:**
 
 ```bash
 # preparing layer for lambda function
@@ -113,7 +113,9 @@ here are some useful links about layers in AWS:
 - [AWS. Adding policies to AWS lambda](https://repost.aws/knowledge-center/lambda-execution-role-s3-bucket)
 
 ![](pics/Permission1.png)
+
 ![](pics/Permission2.png)
+
 ![](pics/Permission3.png)
 
 **8. The resulting view**
@@ -164,7 +166,7 @@ scp -i /<YOUR_PATH>/Ruoka/RuokaPerm.pem /.../Ruoka/LottaBot.zip ec2-user@<YOUR_I
 ```
 Where <YOUR_PATH> is your local path and <YOUR_IP> is your public inctance IP.
 
-After that you need to create folders and install dependencies.
+After that you need to create folders: 
 ```bash
 # in EC2 terminal 
 sudo -i
@@ -174,12 +176,23 @@ mkdir ec2-user
 cd home/ec2-user/
 unzip LottaBot.zip
 cd LottaBot
+```
+
+And install dependencies:
+```bash
 sudo yum update
 sudo yum install python3-pip
 pip3 --version
 pip install -r requirements.txt
+```
+
+When all done you can test your bot with the following command:
+```bash
 python3 bot.py
-# for the future updates these commands can be useful
+```
+
+For the future updates these commands can be useful:
+```bash
 scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
 scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
