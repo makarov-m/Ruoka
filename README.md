@@ -180,6 +180,7 @@ cd LottaBot
 
 And install dependencies:
 ```bash
+# in EC2 terminal 
 sudo yum update
 sudo yum install python3-pip
 pip3 --version
@@ -188,11 +189,13 @@ pip install -r requirements.txt
 
 When all done you can test your bot with the following command:
 ```bash
+# in EC2 terminal 
 python3 bot.py
 ```
 
 For the future updates these commands can be useful:
 ```bash
+# in your local terminal 
 scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/bot.py ec2-user@<IP>:/home/ec2-user/LottaBot
 scp -i /<YOUR_PATH>/RuokaPerm.pem /<YOUR_PATH>/Ruoka/LottaBot/dynamodb_states.py ec2-user@<IP>:/home/ec2-user/LottaBot
 ```
@@ -203,12 +206,15 @@ Where <YOUR_PATH> is your local path and <YOUR_IP> is your public inctance IP.
 It might happen that your bot can stop after termination of the terminal. To create a system service for your Python script, you need to create a service configuration file. Here's an example of how to create and configure the service file:
 
 ```bash
+# in EC2 terminal 
 sudo nano /etc/systemd/system/bot.service
 ```
 
 In the text editor, add the appropriate service configuration content. Here's an example:
 
 ```bash
+# in EC2 terminal 
+
 [Unit]
 Description=Your Bot Service
 After=network.target
@@ -230,19 +236,24 @@ Save the file **(Ctrl + O)**, exit the editor **(Ctrl + X)**.
 Once you've confirmed that the bot.service file exists in the correct directory, try enabling the service again:
 
 ```bash
+# in EC2 terminal 
 sudo systemctl enable bot.service
 ```
 
 ```bash
+# in EC2 terminal 
 sudo systemctl start bot.service
 ```
 
 You should now have your Python script running as a system service. You can check the status of the service using:
 ```bash
+# in EC2 terminal 
 sudo systemctl status bot.service
 ```
+
 If there are any errors, you can view the logs using:
 ```bash
+# in EC2 terminal 
 If there are any errors, you can view the logs using:
 ```
 
