@@ -253,8 +253,8 @@ sudo systemctl status bot.service
 
 If there are any errors, you can view the logs using:
 ```bash
-# in EC2 terminal 
-If there are any errors, you can view the logs using:
+# in EC2 terminal, read last 100 logs
+sudo journalctl -u bot.service -n 100
 ```
 
 Remember to ensure that the bot.py script has executable permissions (chmod +x bot.py) and that it specifies the Python interpreter on the first line (e.g., #!/usr/bin/python3) to ensure it can be executed properly.

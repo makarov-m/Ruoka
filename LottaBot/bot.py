@@ -22,7 +22,7 @@ cache = TTLCache(maxsize=float('inf'), ttl=0.5)
 
 # Initialize bot and dispatcher
 load_dotenv()
-token = os.getenv('TELEGRAM_LOTTA_TOKEN_TEST')
+token = os.getenv('TELEGRAM_LOTTA_TOKEN')
 if not token:
     exit("Error: no token provided")
 bot = Bot(token=token)
